@@ -1,23 +1,39 @@
-const express = require('express')
-const router = express.Router()
-
-
+const express = require("express");
+const router = express.Router();
+const queries = require("../queries/queries");
 
 router.post("/create", async (req, res) => {
-    res.end('create')
+  let plan = {
+    name: req.body.name,
+    description: req.body.description,
+    status: "open",
+  };
+  let result = await queries.Create(plan.name, plan.description, plan.status);
+  return res.sendStatus(201);
 });
 
+router.get("/getall", async (req, res) => {
+  let result = await queries.getall();
+  if (result.length == 0) return res.status(200).json([]);
+  else return res.status(200).json(result);
+});
 
-router.get('/todos', async (req, res) => {
-    res.end('todos')
-})
+router.put("/update/:id", async (req, res) => {
+  let plan = {
+    name: req.body.name,
+    description: req.body.description,
+    id: req.params.id,
+  };
+  let result = await queries.update(plan.name, plan.description, plan.id);
+  if (result.affectedRows == 0) return res.sendStatus(404);
+  else return res.sendStatus(202);
+});
 
-router.patch('/edit', async (req, res) => {
-    res.end('edit')
-})
+router.delete("/delete/:id", async (req, res) => {
+  let id = req.params.id;
+  let result = await queries.delete(id);
+  if (result.affectedRows == 0) return res.sendStatus(404);
+  else return res.sendStatus(202);
+});
 
-router.delete('/delete', async (req, res) => {
-    res.end('delete')
-})
-
-module.exports = router
+module.exports = router;
