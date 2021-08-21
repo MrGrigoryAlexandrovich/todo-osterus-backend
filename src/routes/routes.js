@@ -28,6 +28,17 @@ router.put("/update/:id", async (req, res) => {
   if (result.affectedRows == 0) return res.sendStatus(404);
   else return res.sendStatus(202);
 });
+router.put("/updatestatus/:id", async (req, res) => {
+  let todo = await queries.getTodo(req.params.id)
+  let status;
+  if(todo.status==='done')
+  status='open'
+  else
+  status='done'
+  let result = await queries.updateStatus(status,req.params.id);
+  if (result.affectedRows == 0) return res.sendStatus(404);
+  else return res.sendStatus(202);
+});
 
 router.delete("/delete/:id", async (req, res) => {
   let id = req.params.id;

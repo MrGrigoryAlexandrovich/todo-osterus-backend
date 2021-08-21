@@ -22,12 +22,36 @@ module.exports = {
       db.end();
     });
   },
+  getTodo(id) {
+    let db = connection.createConn();
+    return new Promise((resolve, reject) => {
+      db.query(sql.getone, id, (err, result) => {
+        if (err) reject(new Error());
+        else resolve(result[0]);
+      });
+      db.end();
+    });
+  },
   update(name,description,id) {
     let db = connection.createConn();
     return new Promise((resolve, reject) => {
       db.query(
         sql.update,
         [name,description,id],
+        (err, result) => {
+          if (err) reject(new Error());
+          else resolve(result);
+        }
+      );
+      db.end();
+    });
+  },
+  updateStatus(status,id) {
+    let db = connection.createConn();
+    return new Promise((resolve, reject) => {
+      db.query(
+        sql.updatestatus,
+        [status,id],
         (err, result) => {
           if (err) reject(new Error());
           else resolve(result);
@@ -46,4 +70,6 @@ module.exports = {
       db.end();
     });
   },
+
+
 };
