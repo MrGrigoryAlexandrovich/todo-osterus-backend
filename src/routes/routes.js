@@ -20,24 +20,27 @@ router.get("/getall", async (req, res) => {
 
 router.put("/update/:id", async (req, res) => {
   let plan = {
+    id: req.params.id,
     name: req.body.name,
     description: req.body.description,
-    id: req.params.id,
   };
   let result = await queries.update(plan.name, plan.description, plan.id);
   if (result.affectedRows == 0) return res.sendStatus(404);
-  else return res.sendStatus(202);
+  else
+    return res.json({
+      id: plan.id,
+      name: plan.name,
+      description: plan.description,
+    });
 });
 router.put("/updatestatus/:id", async (req, res) => {
-  let todo = await queries.getTodo(req.params.id)
+  let todo = await queries.getTodo(req.params.id);
   let status;
-  if(todo.status==='done')
-  status='open'
-  else
-  status='done'
-  let result = await queries.updateStatus(status,req.params.id);
+  if (todo.status === "done") status = "open";
+  else status = "done";
+  let result = await queries.updateStatus(status, req.params.id);
   if (result.affectedRows == 0) return res.sendStatus(404);
-  else return res.json({status})
+  else return res.json({ status });
 });
 
 router.delete("/delete/:id", async (req, res) => {
