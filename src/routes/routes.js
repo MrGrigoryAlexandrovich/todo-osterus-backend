@@ -37,7 +37,7 @@ router.put("/updatestatus/:id", async (req, res) => {
   status='done'
   let result = await queries.updateStatus(status,req.params.id);
   if (result.affectedRows == 0) return res.sendStatus(404);
-  else return res.sendStatus(202);
+  else return res.json({status})
 });
 
 router.delete("/delete/:id", async (req, res) => {
