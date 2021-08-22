@@ -11,7 +11,7 @@
 ## NPM RUN DEV - in project folder
 ### `npm run dev` 
 ### or
-### `npm run dev | npm start` 
+### `npm start` 
 
 ## Demo
 ### http://stark-ridge-95612.herokuapp.com/
