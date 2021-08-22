@@ -8,8 +8,10 @@
 ## NPM INSTALL - in project folder
 ### `npm i`
 
-## NPM START - in project folder
+## NPM RUN DEV - in project folder
 ### `npm run dev` 
+### or
+### `npm run dev | npm start` 
 
 ## Demo
 ### http://stark-ridge-95612.herokuapp.com/
